@@ -1,8 +1,7 @@
 import requests
-import json
 import time
 from typing import List, Optional, Dict, Any, Union
-from urllib.parse import urlencode, quote
+from urllib.parse import quote
 from .models import Song, Artist, Album, Era, FileInfo, DirectoryInfo, SearchResult, Stats
 from .exceptions import JuiceWRLDAPIError, RateLimitError, NotFoundError, AuthenticationError, ValidationError
 
@@ -44,7 +43,6 @@ class JuiceWRLDAPI:
         return self._make_request('POST', endpoint, json=data)
 
     def get_api_overview(self) -> Dict[str, Any]:
-        """Get API overview with available endpoints"""
         data = self._get('/juicewrld/')
         return {
             'endpoints': data,
@@ -160,23 +158,17 @@ class JuiceWRLDAPI:
         return self._get(f'/juicewrld/player/songs/{song_id}/')
 
     def play_juicewrld_song(self, song_id: int) -> Dict[str, Any]:
-        """Stream a song using the files/download endpoint (new method)"""
         try:
-            # First get the song details to find the file path
             song_data = self.get_juicewrld_song(song_id)
             if 'file' not in song_data:
                 return {'error': 'Song file information not found', 'song_id': song_id, 'status': 'no_file_info'}
             
-            # Extract file path from the file URL
             file_url = song_data['file']
             if '/media/' in file_url:
-                # Extract path after /media/
                 file_path = file_url.split('/media/')[-1]
             else:
                 return {'error': 'Invalid file URL format', 'song_id': song_id, 'status': 'invalid_url'}
             
-            # Try to find the actual file in comp directory structure
-            # Common paths where audio files might be
             possible_paths = [
                 f"Compilation/1. Released Discography/{song_data.get('album', '')}/{song_data.get('title', '')}.mp3",
                 f"Compilation/2. Unreleased Discography/{song_data.get('title', '')}.mp3",
@@ -184,13 +176,12 @@ class JuiceWRLDAPI:
                 f"Session Edits/{song_data.get('title', '')}.mp3"
             ]
             
-            # Test which path actually exists and works
             for test_path in possible_paths:
                 try:
                     stream_url = f"{self.base_url}/juicewrld/files/download/?path={quote(test_path)}"
                     headers = {'Range': 'bytes=0-0'}
                     response = self.session.get(stream_url, headers=headers, timeout=5)
-                    if response.status_code in [200, 206]:  # 206 = Partial Content
+                    if response.status_code in [200, 206]:
                         return {
                             'status': 'success', 
                             'song_id': song_id, 
@@ -201,7 +192,6 @@ class JuiceWRLDAPI:
                 except:
                     continue
             
-            # If no files found, return streaming URL anyway (might work with correct path)
             stream_url = f"{self.base_url}/juicewrld/files/download/?path={quote(file_path)}"
             return {
                 'status': 'file_not_found_but_url_provided', 
@@ -215,15 +205,13 @@ class JuiceWRLDAPI:
             return {'error': f'Request failed: {str(e)}', 'song_id': song_id, 'status': 'request_error'}
 
     def stream_audio_file(self, file_path: str) -> Dict[str, Any]:
-        """Stream an audio file directly using the files/download endpoint"""
         try:
             stream_url = f"{self.base_url}/juicewrld/files/download/?path={quote(file_path)}"
             
-            # Test if file exists using GET with range header (HEAD not allowed)
             headers = {'Range': 'bytes=0-0'}
             response = self.session.get(stream_url, headers=headers, timeout=self.timeout)
             
-            if response.status_code in [200, 206]:  # 206 = Partial Content for range requests
+            if response.status_code in [200, 206]:
                 return {
                     'status': 'success',
                     'stream_url': stream_url,
