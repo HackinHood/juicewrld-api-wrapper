@@ -1,6 +1,6 @@
 import requests
 import time
-from typing import List, Optional, Dict, Any, Union
+from typing import List, Optional, Dict, Any
 from urllib.parse import quote
 from .models import Song, Artist, Album, Era, FileInfo, DirectoryInfo, SearchResult, Stats
 from .exceptions import JuiceWRLDAPIError, RateLimitError, NotFoundError, AuthenticationError, ValidationError
@@ -396,3 +396,4 @@ class JuiceWRLDAPI:
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.close()
+
