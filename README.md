@@ -319,7 +319,7 @@ The wrapper respects API rate limits:
 
 ## Project Status
 
-- **Version**: 1.0.2
+- **Version**: 1.0.3
 - **Status**: Production Ready
 - **Python Support**: 3.7+
 - **Dependencies**: Minimal (only requests)
@@ -334,7 +334,7 @@ For support or questions:
 
 ## Changelog
 
-### v1.0.2
+### v1.0.3
 - PyPI packaging improvements
 - Cross-platform build tools
 - Enhanced documentation

@@ -1,7 +1,7 @@
 import requests
 import time
 from datetime import datetime
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, Union
 from urllib.parse import quote
 from .models import Song, Artist, Album, Era, FileInfo, DirectoryInfo, SearchResult, Stats
 from .exceptions import JuiceWRLDAPIError, RateLimitError, NotFoundError, AuthenticationError, ValidationError
@@ -12,7 +12,7 @@ class JuiceWRLDAPI:
         self.timeout = timeout
         self.session = requests.Session()
         self.session.headers.update({
-            'User-Agent': 'JuiceWRLD-API-Wrapper/1.0.2',
+            'User-Agent': 'JuiceWRLD-API-Wrapper/1.0.3',
             'Accept': 'application/json'
         })
         self.rate_limit_remaining = 100
@@ -49,7 +49,7 @@ class JuiceWRLDAPI:
             'endpoints': data,
             'title': 'Juice WRLD API',
             'description': 'Comprehensive API for Juice WRLD discography and content',
-            'version': '1.0.2'
+            'version': '1.0.3'
         }
 
     def get_artists(self) -> List[Artist]:
@@ -293,7 +293,7 @@ class JuiceWRLDAPI:
         data = self._get('/juicewrld/files/info/', {'path': file_path})
         return FileInfo(**data)
 
-    def download_file(self, file_path: str, save_path: Optional[str] = None) -> bytes | str:
+    def download_file(self, file_path: str, save_path: Optional[str] = None) -> Union[bytes, str]:
         url = f"{self.base_url}/juicewrld/files/download/?path={quote(file_path)}"
         
         try:
