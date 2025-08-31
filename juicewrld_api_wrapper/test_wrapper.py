@@ -16,7 +16,7 @@ def test_basic_functionality():
     print("\n=== Testing Basic Functionality ===")
     
     try:
-        api = JuiceWRLDAPI(base_url="http://localhost:8000")
+        api = JuiceWRLDAPI()
         print("✓ Successfully created API client")
         
         try:
@@ -44,7 +44,7 @@ def test_search_functionality():
     print("\n=== Testing Search Functionality ===")
     
     try:
-        api = JuiceWRLDAPI(base_url="http://localhost:8000")
+        api = JuiceWRLDAPI()
         
         try:
             search_results = api.search_songs("lucid", limit=3)
@@ -69,7 +69,7 @@ def test_pagination():
     print("\n=== Testing Pagination ===")
     
     try:
-        api = JuiceWRLDAPI(base_url="http://localhost:8000")
+        api = JuiceWRLDAPI()
         
         try:
             page1 = api.get_songs(page=1, page_size=5)
@@ -92,7 +92,7 @@ def test_category_filtering():
     print("\n=== Testing Category Filtering ===")
     
     try:
-        api = JuiceWRLDAPI(base_url="http://localhost:8000")
+        api = JuiceWRLDAPI()
         
         try:
             released = api.get_songs_by_category("released", page_size=3)
@@ -114,7 +114,7 @@ def test_artists():
     print("\n=== Testing Artists ===")
     
     try:
-        api = JuiceWRLDAPI(base_url="http://localhost:8000")
+        api = JuiceWRLDAPI()
         
         try:
             artists = api.get_artists()
@@ -140,7 +140,7 @@ def test_albums():
     print("\n=== Testing Albums ===")
     
     try:
-        api = JuiceWRLDAPI(base_url="http://localhost:8000")
+        api = JuiceWRLDAPI()
         
         try:
             albums = api.get_albums()
@@ -166,7 +166,7 @@ def test_eras():
     print("\n=== Testing Eras ===")
     
     try:
-        api = JuiceWRLDAPI(base_url="http://localhost:8000")
+        api = JuiceWRLDAPI()
         
         try:
             eras = api.get_eras()
@@ -192,7 +192,7 @@ def test_song_details():
     print("\n=== Testing Song Details ===")
     
     try:
-        api = JuiceWRLDAPI(base_url="http://localhost:8000")
+        api = JuiceWRLDAPI()
         
         try:
             songs = api.get_songs(page_size=1)
@@ -216,7 +216,7 @@ def test_stats():
     print("\n=== Testing Stats ===")
     
     try:
-        api = JuiceWRLDAPI(base_url="http://localhost:8000")
+        api = JuiceWRLDAPI()
         
         try:
             stats = api.get_stats()
@@ -237,7 +237,7 @@ def test_player_endpoints():
     print("\n=== Testing Player & Audio Streaming ===")
     
     try:
-        api = JuiceWRLDAPI(base_url="http://localhost:8000")
+        api = JuiceWRLDAPI()
         
         try:
             player_songs = api.get_juicewrld_songs(page_size=3)
@@ -284,7 +284,7 @@ def test_file_operations():
     print("\n=== Testing File Operations ===")
     
     try:
-        api = JuiceWRLDAPI(base_url="http://localhost:8000")
+        api = JuiceWRLDAPI()
         
         try:
             browse_result = api.browse_files()
@@ -334,7 +334,7 @@ def test_zip_jobs():
     print("\n=== Testing ZIP Job Operations ===")
     
     try:
-        api = JuiceWRLDAPI(base_url="http://localhost:8000")
+        api = JuiceWRLDAPI()
         
         try:
             file_paths = ["Snippets/Auto/Auto.mp4"]
@@ -399,4 +399,5 @@ def main():
         return 1
 
 if __name__ == "__main__":
+
     sys.exit(main())
