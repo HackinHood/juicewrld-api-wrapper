@@ -49,7 +49,7 @@ python -c "from juicewrld_api_wrapper import JuiceWRLDAPI; print('Installation s
 from juicewrld_api_wrapper import JuiceWRLDAPI
 
 # Initialize the API client
-api = JuiceWRLDAPI(base_url="http://localhost:8000")
+api = JuiceWRLDAPI()
 
 # Get API overview
 overview = api.get_api_overview()
@@ -69,7 +69,7 @@ api.close()
 ```python
 from juicewrld_api_wrapper import JuiceWRLDAPI
 
-api = JuiceWRLDAPI(base_url="http://localhost:8000")
+api = JuiceWRLDAPI()
 
 # Stream audio directly
 stream_result = api.stream_audio_file("Compilation/2. Unreleased Discography/song.mp3")
@@ -91,7 +91,7 @@ api.close()
 ```python
 from juicewrld_api_wrapper import JuiceWRLDAPI
 
-with JuiceWRLDAPI(base_url="http://localhost:8000") as api:
+with JuiceWRLDAPI() as api:
     stats = api.get_stats()
     print(f"Total songs: {stats.total_songs}")
     
@@ -253,7 +253,7 @@ See `examples.py` for comprehensive usage examples covering:
 ### Environment Variables
 
 ```bash
-export JUICE_WRLD_API_BASE_URL="http://localhost:8000"
+export JUICE_WRLD_API_
 export JUICE_WRLD_API_TIMEOUT="30"
 ```
 
@@ -332,3 +332,4 @@ For support or questions:
 - Audio streaming support
 - ZIP operations
 - Modern files/download endpoint integration
+
