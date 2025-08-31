@@ -1,6 +1,7 @@
 import requests
 import time
-from typing import List, Optional, Dict, Any, Union
+from datetime import datetime
+from typing import List, Optional, Dict, Any
 from urllib.parse import quote
 from .models import Song, Artist, Album, Era, FileInfo, DirectoryInfo, SearchResult, Stats
 from .exceptions import JuiceWRLDAPIError, RateLimitError, NotFoundError, AuthenticationError, ValidationError
@@ -11,7 +12,7 @@ class JuiceWRLDAPI:
         self.timeout = timeout
         self.session = requests.Session()
         self.session.headers.update({
-            'User-Agent': 'JuiceWRLD-API-Wrapper/1.0.0',
+            'User-Agent': 'JuiceWRLD-API-Wrapper/1.0.2',
             'Accept': 'application/json'
         })
         self.rate_limit_remaining = 100
@@ -48,7 +49,7 @@ class JuiceWRLDAPI:
             'endpoints': data,
             'title': 'Juice WRLD API',
             'description': 'Comprehensive API for Juice WRLD discography and content',
-            'version': '1.0.0'
+            'version': '1.0.2'
         }
 
     def get_artists(self) -> List[Artist]:
@@ -240,8 +241,31 @@ class JuiceWRLDAPI:
         items = []
         for item in data.get('items', []):
             if item['type'] == 'file':
-                items.append(FileInfo(**item))
+                try:
+                    created = datetime.fromisoformat(item.get('created', '')) if item.get('created') else datetime.now()
+                    modified = datetime.fromisoformat(item.get('modified', '')) if item.get('modified') else datetime.now()
+                except (ValueError, TypeError):
+                    created = datetime.now()
+                    modified = datetime.now()
+                
+                items.append(FileInfo(
+                    name=item.get('name', ''),
+                    type=item.get('type', 'file'),
+                    size=item.get('size', 0),
+                    size_human=item.get('size_human', ''),
+                    path=item.get('path', ''),
+                    extension=item.get('extension', ''),
+                    mime_type=item.get('mime_type', ''),
+                    created=created,
+                    modified=modified,
+                    encoding=item.get('encoding')
+                ))
             else:
+                try:
+                    modified = datetime.fromisoformat(item.get('modified', '')) if item.get('modified') else datetime.now()
+                except (ValueError, TypeError):
+                    modified = datetime.now()
+                
                 items.append(FileInfo(
                     name=item['name'],
                     type='directory',
@@ -250,7 +274,9 @@ class JuiceWRLDAPI:
                     path=item['path'],
                     extension='',
                     mime_type='',
-                    modified=item.get('modified')
+                    created=modified,
+                    modified=modified,
+                    encoding=None
                 ))
         
         return DirectoryInfo(
@@ -267,7 +293,7 @@ class JuiceWRLDAPI:
         data = self._get('/juicewrld/files/info/', {'path': file_path})
         return FileInfo(**data)
 
-    def download_file(self, file_path: str, save_path: Optional[str] = None) -> Union[bytes, str]:
+    def download_file(self, file_path: str, save_path: Optional[str] = None) -> bytes | str:
         url = f"{self.base_url}/juicewrld/files/download/?path={quote(file_path)}"
         
         try:
@@ -396,5 +422,4 @@ class JuiceWRLDAPI:
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.close()
-
 

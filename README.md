@@ -24,12 +24,22 @@ A comprehensive Python wrapper for the Juice WRLD API, providing easy access to 
 
 ### Quick Install (Recommended)
 ```bash
-pip install git+https://github.com/hackinhood/juicewrld-api-wrapper.git
+pip install juicewrld-api-wrapper
 ```
 
 ### Alternative Installation Methods
 
-**From GitHub Repository**
+**From PyPI (Latest Release)**
+```bash
+pip install juicewrld-api-wrapper
+```
+
+**From GitHub Repository (Development Version)**
+```bash
+pip install git+https://github.com/hackinhood/juicewrld-api-wrapper.git
+```
+
+**From Source**
 ```bash
 git clone https://github.com/hackinhood/juicewrld-api-wrapper.git
 cd juicewrld-api-wrapper
@@ -309,7 +319,7 @@ The wrapper respects API rate limits:
 
 ## Project Status
 
-- **Version**: 1.0.0
+- **Version**: 1.0.2
 - **Status**: Production Ready
 - **Python Support**: 3.7+
 - **Dependencies**: Minimal (only requests)
@@ -323,6 +333,11 @@ For support or questions:
 - Check the [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines
 
 ## Changelog
+
+### v1.0.2
+- PyPI packaging improvements
+- Cross-platform build tools
+- Enhanced documentation
 
 ### v1.0.0
 - Initial release

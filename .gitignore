@@ -1,0 +1,15 @@
+dist/*
+build/*
+*.egg-info/*
+__pycache__/*
+.pytest_cache/*
+venv/*
+.env/*
+.vscode/*
+build.bat
+Makefile
+CHANGELOG.md
+Manifest.in
+PyPI_PUBLISHING.md
+pyproject.toml
+requirements-dev.txt
