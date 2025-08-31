@@ -13,12 +13,11 @@ setup(
     description="A comprehensive Python wrapper for the Juice WRLD API",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/juicewrld-api-wrapper",
+    url="https://github.com/HackinHood/juicewrld-api-wrapper",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
-        "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
@@ -43,8 +42,8 @@ setup(
     },
     keywords="juice wrld, api, wrapper, music, discography, python",
     project_urls={
-        "Bug Reports": "https://github.com/yourusername/juicewrld-api-wrapper/issues",
-        "Source": "https://github.com/yourusername/juicewrld-api-wrapper",
-        "Documentation": "https://github.com/yourusername/juicewrld-api-wrapper#readme",
+        "Bug Reports": "https://github.com/HackinHood/juicewrld-api-wrapper/issues",
+        "Source": "https://github.com/HackinHood/juicewrld-api-wrapper",
+        "Documentation": "https://github.com/HackinHood/juicewrld-api-wrapper#readme",
     },
 )
