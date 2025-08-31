@@ -62,6 +62,7 @@ class FileInfo:
     path: str
     extension: str
     mime_type: str
+    created: datetime
     modified: datetime
 
 @dataclass
@@ -86,3 +87,4 @@ class Stats:
     total_songs: int
     category_stats: Dict[str, int]
     era_stats: Dict[str, int]
+
