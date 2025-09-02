@@ -35,7 +35,7 @@ class JuiceWRLDAPI:
         self.timeout = timeout
         self.session = requests.Session()
         self.session.headers.update({
-            'User-Agent': 'JuiceWRLD-API-Wrapper/1.0.3',
+            'User-Agent': 'JuiceWRLD-API-Wrapper/1.0.4',
             'Accept': 'application/json'
         })
         self.rate_limit_remaining = 100
@@ -127,7 +127,7 @@ class JuiceWRLDAPI:
             'endpoints': data,
             'title': 'Juice WRLD API',
             'description': 'Comprehensive API for Juice WRLD discography and content',
-            'version': '1.0.3'
+            'version': '1.0.4'
         }
 
     def get_artists(self) -> List[Artist]:

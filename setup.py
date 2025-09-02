@@ -8,7 +8,7 @@ with open("requirements.txt", "r", encoding="utf-8") as fh:
 
 setup(
     name="juicewrld-api-wrapper",
-    version="1.0.3",
+    version="1.0.4",
     author="Juice WRLD API Wrapper",
     author_email="support@juicewrldapi.com",
     description="A comprehensive Python wrapper for the Juice WRLD API",
